@@ -213,7 +213,7 @@ class TelaSegunda extends StatelessWidget {
                   width: 86*fem,
                   height: 63*fem,
                   child: Image.asset(
-                    'assets/page-1/images/wgjm-unscreen-1-3.png',
+                    'assets/page-1/images/WgjM-unscreen2.gif',
                     fit: BoxFit.cover,
                   ),
                 ),
