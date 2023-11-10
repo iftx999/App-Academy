@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/page-1/iphone-8-plus-3.dart';
+import 'package:myapp/page-1/iphone-8-plus-4.dart';
 import 'package:myapp/utils.dart';
 
 class TelaSegunda extends StatelessWidget {
@@ -136,44 +138,7 @@ class TelaSegunda extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              // rectangle6t66 (45:3)
-              left: 10*fem,
-              top: 364*fem,
-              child: Align(
-                child: SizedBox(
-                  width: 171*fem,
-                  height: 181*fem,
-                  child: Container(
-                    decoration: BoxDecoration (
-                      borderRadius: BorderRadius.circular(8*fem),
-                      color: Color(0xffd9d9d9),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              // gokuPoY (48:8)
-              left: 40*fem,
-              top: 134.5*fem,
-              child: Align(
-                child: SizedBox(
-                  width: 39*fem,
-                  height: 17*fem,
-                  child: Text(
-                    'Goku:',
-                    style: SafeGoogleFont (
-                      'Inter',
-                      fontSize: 14*ffem,
-                      fontWeight: FontWeight.w400,
-                      height: 1.2125*ffem/fem,
-                      color: Color(0xff000000),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
             Positioned(
               // wgjmunscreen115Aa (57:10)
               left: 16*fem,
@@ -241,66 +206,64 @@ class TelaSegunda extends StatelessWidget {
               ),
             ),
             Positioned(
-              // rectangle7uJ2 (64:14)
-              left: 195*fem,
-              top: 364*fem,
+              left: 10*fem,
+              top: 364*fem,//Posição vertical
               child: Align(
-                child: SizedBox(
-                  width: 171*fem,
-                  height: 181*fem,
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom (
-                      padding: EdgeInsets.zero,
+                alignment: Alignment.topRight, // Alinhar no canto superior direito
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => TelaMenu3()),
+                    );                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey, // Cor de fundo do botão
+                    onPrimary: Colors.white, // Cor do texto
+                    padding: EdgeInsets.zero, // Define o preenchimento interno como zero
+                    minimumSize: Size(181, 171), // Define a largura e a altura do botão
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8), // Borda arredondada
                     ),
-                    child: Container(
-                      decoration: BoxDecoration (
-                        borderRadius: BorderRadius.circular(8*fem),
-                        color: Color(0xffd9d9d9),
-                      ),
-                    ),
+                    elevation: 5, // Elevação (sombra) do botão
                   ),
-                ),
-              ),
-            ),
-            Positioned(
-              // dumbbellsolid1CH8 (78:2)
-              left: 39*fem,
-              top: 415*fem,
-              child: Align(
-                child: SizedBox(
-                  width: 112*fem,
-                  height: 86*fem,
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom (
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Image.asset(
-                      'assets/page-1/images/dumbbell-solid-1.png',
-                      width: 112*fem,
-                      height: 86*fem,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              // bowlfoodsolid15Lv (90:7)
-              left: 230*fem,
-              top: 417.375*fem,
-              child: Align(
-                child: SizedBox(
-                  width: 102*fem,
-                  height: 75.25*fem,
                   child: Image.asset(
                     'assets/page-1/images/bowl-food-solid-1.png',
-                    width: 102*fem,
-                    height: 75.25*fem,
+                    width: 112 * fem,
+                    height: 86 * fem,
                   ),
                 ),
               ),
             ),
+
+            Positioned(
+              left: 195 * fem, // Posição horizontal
+              top: 364 * fem,  // Posição vertical
+              child: Align(
+                alignment: Alignment.topRight, // Alinhar no canto superior direito
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => TelaMenu4()),
+                    );                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey, // Cor de fundo do botão
+                    onPrimary: Colors.white, // Cor do texto
+                    padding: EdgeInsets.zero, // Define o preenchimento interno como zero
+                    minimumSize: Size(181, 171), // Define a largura e a altura do botão
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8), // Borda arredondada
+                    ),
+                    elevation: 5, // Elevação (sombra) do botão
+                  ),
+                  child: Image.asset(
+                    'assets/page-1/images/dumbbell-solid-1.png',
+                    width: 112 * fem,
+                    height: 86 * fem,
+                  ),
+                ),
+              ),
+            )
+
+
           ],
         ),
       ),
