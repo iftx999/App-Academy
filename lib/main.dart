@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/page-1/iphone-8-plus-1.dart';
+
 // import 'package:myapp/page-1/iphone-8-plus-2.dart';
 // import 'package:myapp/page-1/iphone-8-plus-3.dart';
 // import 'package:myapp/page-1/iphone-8-plus-4.dart';
 
-void main() => runApp(MyApp());
+void main() {
+
+	runApp(MyApp());
+}
+
 
 class MyApp extends StatelessWidget {
 	@override
