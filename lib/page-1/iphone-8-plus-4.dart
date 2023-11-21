@@ -107,6 +107,26 @@ class _TelaMenu4State extends State<TelaMenu4> {
                 controller: _pernaController,
                 decoration: InputDecoration(labelText: 'Perna'),
               ),
+              TextField(
+                controller: _bicepsController,
+                decoration: InputDecoration(labelText: 'Costas'),
+              ),
+              TextField(
+                controller: _bicepsController,
+                decoration: InputDecoration(labelText: 'Biceps'),
+              ),
+              TextField(
+                controller: _ombroController,
+                decoration: InputDecoration(labelText: 'Ombro'),
+              ),
+              TextField(
+                controller: _gluteosController,
+                decoration: InputDecoration(labelText: 'Gluteos'),
+              ),
+              TextField(
+                controller: _peitoController,
+                decoration: InputDecoration(labelText: 'Peito'),
+              ),
               // Adicione mais campos aqui, se necessário
             ],
           ),
