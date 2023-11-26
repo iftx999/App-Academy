@@ -17,33 +17,36 @@ class _TelaMenu4State extends State<TelaMenu4> {
   TextEditingController _ombroController = TextEditingController();
   TextEditingController _peitoController = TextEditingController();
 
-  // Adicione mais controladores para outros campos, se necessário
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('CRUD em Flutter'),
       ),
-      body: FutureBuilder<List<Treino>>(
-        future: _dao.obterTodos(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('Erro: ${snapshot.error}');
-          } else if (snapshot.data == null) {
-            return Text('A lista é nula');
-          } else {
-            List<Treino> listaDeModelos = snapshot.data!;
-            return ListView.builder(
-              itemCount: listaDeModelos.length,
-              itemBuilder: (context, index) {
-                return _buildTreinoCard(listaDeModelos[index]);
-              },
-            );
-          }
-        },
+      body: ListView(
+        children: [
+          FutureBuilder<List<Treino>>(
+            future: _dao.obterTodos(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Erro: ${snapshot.error}'));
+              } else if (snapshot.data == null || snapshot.data!.isEmpty) {
+                return Center(child: Text('A lista é nula ou vazia'));
+              } else {
+                List<Treino> listaDeModelos = snapshot.data!;
+                return Column(
+                  children: listaDeModelos.map((treino) {
+                    return _buildTreinoCard(treino);
+                  }).toList(),
+                );
+              }
+            },
+          ),
+          SizedBox(height: 16.0),
+          // Adicionando um espaço entre a lista e o botão flutuante
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -90,45 +93,47 @@ class _TelaMenu4State extends State<TelaMenu4> {
   void _showFormDialog(BuildContext context, [Treino? treino]) {
     _costasController.text = treino?.costas ?? '';
     _pernaController.text = treino?.perna ?? '';
-    // Adicione mais inicializações de controladores para outros campos, se necessário
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(treino == null ? 'Adicionar Treino' : 'Editar Treino'),
-          content: Column(
-            children: [
-              TextField(
-                controller: _costasController,
-                decoration: InputDecoration(labelText: 'Nome'),
-              ),
-              TextField(
-                controller: _pernaController,
-                decoration: InputDecoration(labelText: 'Perna'),
-              ),
-              TextField(
-                controller: _bicepsController,
-                decoration: InputDecoration(labelText: 'Costas'),
-              ),
-              TextField(
-                controller: _bicepsController,
-                decoration: InputDecoration(labelText: 'Biceps'),
-              ),
-              TextField(
-                controller: _ombroController,
-                decoration: InputDecoration(labelText: 'Ombro'),
-              ),
-              TextField(
-                controller: _gluteosController,
-                decoration: InputDecoration(labelText: 'Gluteos'),
-              ),
-              TextField(
-                controller: _peitoController,
-                decoration: InputDecoration(labelText: 'Peito'),
-              ),
-              // Adicione mais campos aqui, se necessário
-            ],
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: _costasController,
+                  decoration: InputDecoration(labelText: 'Nome'),
+                ),
+                TextField(
+                  controller: _pernaController,
+                  decoration: InputDecoration(labelText: 'Perna'),
+                ),
+                TextField(
+                  controller: _bicepsController,
+                  decoration: InputDecoration(labelText: 'Costas'),
+                ),
+                TextField(
+                  controller: _bicepsController,
+                  decoration: InputDecoration(labelText: 'Biceps'),
+                ),
+                TextField(
+                  controller: _ombroController,
+                  decoration: InputDecoration(labelText: 'Ombro'),
+                ),
+                TextField(
+                  controller: _gluteosController,
+                  decoration: InputDecoration(labelText: 'Gluteos'),
+                ),
+                TextField(
+                  controller: _peitoController,
+                  decoration: InputDecoration(labelText: 'Peito'),
+                ),
+                // Adicione mais campos aqui, se necessário
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -146,9 +151,7 @@ class _TelaMenu4State extends State<TelaMenu4> {
                   peito: _peitoController.text,
                   gluteos: _gluteosController.text,
                   ombro: _ombroController.text,
-                  triceps: _tricepsController.text
-
-                  // Preencha outros campos aqui, se necessário
+                  triceps: _tricepsController.text,
                 );
 
                 if (treino == null) {
