@@ -8,7 +8,7 @@ class Treino{
   String? gluteos;
   String? peito;
 
-  Treino({ required this.perna, required this.costas, required this.biceps, required this.triceps, required this.ombro, required this.gluteos, required this.peito});
+  Treino({ this.id, required this.perna, required this.costas, required this.biceps, required this.triceps, required this.ombro, required this.gluteos, required this.peito});
 
 
 
@@ -22,9 +22,6 @@ class Treino{
       'ombro': ombro,
       'gluteos': gluteos,
       'peito': peito,
-
-
-
       // Adicione mais chaves e valores conforme necessário
     };
   }

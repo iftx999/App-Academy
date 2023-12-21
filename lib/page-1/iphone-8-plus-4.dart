@@ -21,8 +21,9 @@ class _TelaMenu4State extends State<TelaMenu4> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CRUD em Flutter'),
-      ),
+        title: Text('Cadastro de treino'),
+        backgroundColor: Colors.grey,
+       ),
       body: ListView(
         children: [
           FutureBuilder<List<Treino>>(
@@ -45,14 +46,17 @@ class _TelaMenu4State extends State<TelaMenu4> {
             },
           ),
           SizedBox(height: 16.0),
-          // Adicionando um espaço entre a lista e o botão flutuante
+          // Outros widgets podem ser adicionados abaixo do FutureBuilder
         ],
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _showFormDialog(context);
         },
         child: Icon(Icons.add),
+        backgroundColor: Colors.grey,
+
       ),
     );
   }
@@ -79,10 +83,25 @@ class _TelaMenu4State extends State<TelaMenu4> {
             ),
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () {
-                _dao.excluir(treino.id!);
-                setState(() {});
+              onPressed: () async {
+                if (treino.id != null) {
+                  print("ID do treino antes da exclusão: ${treino.id}");
+
+                  int result = await _dao.excluir(treino.id!);
+
+                  print("Resultado da exclusão: $result");
+
+                  if (result > 0) {
+                    // Exclusão bem-sucedida
+                    setState(() {});
+                  } else {
+                    print("Erro ao excluir treino. Nenhum registro foi removido.");
+                  }
+                } else {
+                  print("ID do treino é nulo!");
+                }
               },
+
             ),
           ],
         ),
@@ -93,6 +112,11 @@ class _TelaMenu4State extends State<TelaMenu4> {
   void _showFormDialog(BuildContext context, [Treino? treino]) {
     _costasController.text = treino?.costas ?? '';
     _pernaController.text = treino?.perna ?? '';
+    _bicepsController.text = treino?.biceps ?? '';
+    _tricepsController.text = treino?.triceps ?? '';
+    _gluteosController.text = treino?.gluteos ?? '';
+    _ombroController.text = treino?.ombro ?? '';
+    _peitoController.text = treino?.peito ?? '';
 
     showDialog(
       context: context,
@@ -103,16 +127,17 @@ class _TelaMenu4State extends State<TelaMenu4> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  controller: _costasController,
-                  decoration: InputDecoration(labelText: 'Nome'),
-                ),
+
                 TextField(
                   controller: _pernaController,
                   decoration: InputDecoration(labelText: 'Perna'),
                 ),
                 TextField(
-                  controller: _bicepsController,
+                  controller: _tricepsController,
+                  decoration: InputDecoration(labelText: 'Triceps'),
+                ),
+                TextField(
+                  controller: _costasController,
                   decoration: InputDecoration(labelText: 'Costas'),
                 ),
                 TextField(
@@ -143,7 +168,7 @@ class _TelaMenu4State extends State<TelaMenu4> {
               child: Text('Cancelar'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Treino novoTreino = Treino(
                   costas: _costasController.text,
                   perna: _pernaController.text,
@@ -154,16 +179,20 @@ class _TelaMenu4State extends State<TelaMenu4> {
                   triceps: _tricepsController.text,
                 );
 
+                print("ID do treino antes de salvar/atualizar: ${novoTreino.id}");
+
                 if (treino == null) {
-                  _dao.inserir(novoTreino);
+                  // Se treino for nulo, significa que estamos adicionando um novo treino
+                  await _dao.inserir(novoTreino);
                 } else {
-                  novoTreino.id = treino.id;
-                  _dao.atualizar(novoTreino);
+                  await _dao.atualizar(novoTreino);
                 }
 
                 setState(() {});
                 Navigator.pop(context);
               },
+
+
               child: Text('Salvar'),
             ),
           ],
