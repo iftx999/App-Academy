@@ -4,26 +4,38 @@ import 'package:myapp/model/treino.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SeuModeloDao {
-  Future<int> inserir(Treino modelo) async {
-    final Database db = await DatabaseHelper().database;
-    String query = '''
-    INSERT INTO seu_tabela (perna, biceps, triceps, gluteos, costas, ombro, peito)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  ''';
+  late Future<Database> database; // Alteração: Declare como Future<Database>
 
-    List<dynamic> values = [
-      modelo.perna,
-      modelo.biceps,
-      modelo.triceps,
-      modelo.gluteos,
-      modelo.costas,
-      modelo.ombro,
-      modelo.peito,
-    ];
-
-    int idInserido = await db.rawInsert(query, values);
-    return idInserido;
+  SeuModeloDao() {
+    _initDatabase(); // Alteração: Chame _initDatabase no construtor
   }
+
+  Future<void> _initDatabase() async {
+    DatabaseHelper helper = DatabaseHelper(); // Alteração: Crie uma instância da classe que contém initDatabase
+    database = helper
+        .initDatabase(); // Alteração: Chame initDatabase na instância criada
+  }
+
+
+  Future<Treino> inserir(Treino treino) async {
+    final Database db = await database;
+    Map<String, dynamic> data = {
+      'perna': treino.perna,
+      'costas': treino.costas,
+      'biceps': treino.biceps,
+      'triceps': treino.triceps,
+      'ombro': treino.ombro,
+      'gluteos': treino.gluteos,
+      'peito': treino.peito,
+    };
+    int idInserido = await db.insert('seu_tabela', data);
+
+    // Atualizar o objeto Treino com o ID gerado
+    treino.id = idInserido;
+
+    return treino;
+  }
+
 
 
 
@@ -50,15 +62,9 @@ class SeuModeloDao {
   }
 
   Future<int> excluir(int id) async {
-    try {
-      final Database db = await DatabaseHelper().database;
-      int result = await db.delete(
-          'seu_tabela', where: 'id = ?', whereArgs: [id]);
-      return result; // Retorna o número de registros excluídos (0 ou 1)
-    } catch (e) {
-      print("Erro ao excluir treino: $e");
-      return -1; // Ou algum valor que indique um erro
-    }
+    final Database db = await DatabaseHelper().database;
+    int result = await db.delete('seu_tabela', where: 'id = ?', whereArgs: [id]);
+    return result;
   }
 
 }

@@ -181,9 +181,11 @@ class _TelaMenu4State extends State<TelaMenu4> {
 
                 print("ID do treino antes de salvar/atualizar: ${novoTreino.id}");
 
-                if (treino == null) {
-                  // Se treino for nulo, significa que estamos adicionando um novo treino
-                  await _dao.inserir(novoTreino);
+                if (novoTreino.id == null) {
+                  // Se o ID for nulo, significa que é um novo treino
+                  Treino treinoInserido = await _dao.inserir(novoTreino);
+                  print("ID do treino inserido: ${treinoInserido.id}");
+                  // Atualiza o ID no objeto novoTreino
                 } else {
                   await _dao.atualizar(novoTreino);
                 }
@@ -191,10 +193,9 @@ class _TelaMenu4State extends State<TelaMenu4> {
                 setState(() {});
                 Navigator.pop(context);
               },
-
-
               child: Text('Salvar'),
             ),
+
           ],
         );
       },
