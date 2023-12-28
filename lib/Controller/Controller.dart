@@ -44,6 +44,7 @@ class SeuModeloDao {
     final List<Map<String, dynamic>> maps = await db.query('seu_tabela');
     return List.generate(maps.length, (i) {
       return Treino(
+        id: maps[i]['id'],
         perna: maps[i]['perna'],
         costas: maps[i]['costas'],
         biceps: maps[i]['biceps'],
