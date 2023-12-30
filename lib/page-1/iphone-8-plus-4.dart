@@ -170,6 +170,7 @@ class _TelaMenu4State extends State<TelaMenu4> {
             TextButton(
               onPressed: () async {
                 Treino novoTreino = Treino(
+                  id: treino?.id,
                   costas: _costasController.text,
                   perna: _pernaController.text,
                   biceps: _bicepsController.text,
@@ -182,10 +183,8 @@ class _TelaMenu4State extends State<TelaMenu4> {
                 print("ID do treino antes de salvar/atualizar: ${novoTreino.id}");
 
                 if (novoTreino.id == null) {
-                  // Se o ID for nulo, significa que é um novo treino
                   Treino treinoInserido = await _dao.inserir(novoTreino);
                   print("ID do treino inserido: ${treinoInserido.id}");
-                  // Atualiza o ID no objeto novoTreino
                 } else {
                   await _dao.atualizar(novoTreino);
                 }

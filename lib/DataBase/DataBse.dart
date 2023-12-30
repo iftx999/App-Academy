@@ -20,7 +20,7 @@ class DatabaseHelper {
       onCreate: (db, version) {
         return db.execute('''
           CREATE TABLE seu_tabela(
-            id INTEGER PRIMARY KEY DEFAULT,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             perna TEXT,  biceps TEXT, triceps TEXT, gluteos TEXT, costas TEXT, ombro TEXT, peito TEXT
           )
         ''');
