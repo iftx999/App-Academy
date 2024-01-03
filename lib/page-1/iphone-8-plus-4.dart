@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:myapp/Controller/Controller.dart';
 import 'package:myapp/model/treino.dart';
 
+import 'iphone-8-plus-1.dart';
+
 class TelaMenu4 extends StatefulWidget {
   @override
   _TelaMenu4State createState() => _TelaMenu4State();
@@ -23,7 +25,19 @@ class _TelaMenu4State extends State<TelaMenu4> {
       appBar: AppBar(
         title: Text('Cadastro de treino'),
         backgroundColor: Colors.grey,
+        actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Scene()),
+            );
+          },
+        )
+        ]
        ),
+
       body: ListView(
         children: [
           FutureBuilder<List<Treino>>(
