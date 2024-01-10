@@ -27,7 +27,7 @@ class _TelaMenu4State extends State<TelaMenu4> {
         backgroundColor: Colors.grey,
         actions: [
         IconButton(
-          icon: Icon(Icons.add),
+          icon: Icon(Icons.assignment_return_outlined),
           onPressed: (){
             Navigator.push(
                 context,
@@ -144,27 +144,27 @@ class _TelaMenu4State extends State<TelaMenu4> {
 
                 TextField(
                   controller: _pernaController,
-                  decoration: InputDecoration(labelText: 'Perna'),
+                  decoration: InputDecoration(labelText: '1 Exercício'),
                 ),
                 TextField(
                   controller: _tricepsController,
-                  decoration: InputDecoration(labelText: 'Triceps'),
+                  decoration: InputDecoration(labelText: '2 Exercício'),
                 ),
                 TextField(
                   controller: _costasController,
-                  decoration: InputDecoration(labelText: 'Costas'),
+                  decoration: InputDecoration(labelText: '3 Exercício'),
                 ),
                 TextField(
                   controller: _bicepsController,
-                  decoration: InputDecoration(labelText: 'Biceps'),
+                  decoration: InputDecoration(labelText: '4 Exercício'),
                 ),
                 TextField(
                   controller: _ombroController,
-                  decoration: InputDecoration(labelText: 'Ombro'),
+                  decoration: InputDecoration(labelText: '5 Exercício'),
                 ),
                 TextField(
                   controller: _gluteosController,
-                  decoration: InputDecoration(labelText: 'Gluteos'),
+                  decoration: InputDecoration(labelText: '6 Exercício'),
                 ),
                 TextField(
                   controller: _peitoController,

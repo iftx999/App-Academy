@@ -2,6 +2,8 @@
 import 'package:myapp/DataBase/DataBse.dart';
 import 'package:myapp/model/treino.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:myapp/model/refeicao.dart';
+
 
 class SeuModeloDao {
   late Future<Database> database; // Alteração: Declare como Future<Database>
@@ -65,6 +67,56 @@ class SeuModeloDao {
   Future<int> excluir(int id) async {
     final Database db = await DatabaseHelper().database;
     int result = await db.delete('seu_tabela', where: 'id = ?', whereArgs: [id]);
+    return result;
+  }
+  Future<Treino> inserirRef(Treino treino) async {
+    final Database db = await database;
+    Map<String, dynamic> data = {
+      'perna': treino.perna,
+      'costas': treino.costas,
+      'biceps': treino.biceps,
+      'triceps': treino.triceps,
+      'ombro': treino.ombro,
+      'gluteos': treino.gluteos,
+      'peito': treino.peito,
+    };
+    int idInserido = await db.insert('seu_tabela', data);
+
+    // Atualizar o objeto Treino com o ID gerado
+    treino.id = idInserido;
+
+    return treino;
+  }
+
+
+
+
+  Future<List<Refeicao>> obterTodosRef() async {
+    final Database db = await DatabaseHelper().database;
+    final List<Map<String, dynamic>> maps = await db.query('tabela_refeicoes');
+    return List.generate(maps.length, (i) {
+      return Refeicao(
+          id: maps[i]['id'],
+          CafeManha: maps[i]['CafeManha'],
+          IntraAlmoco: maps[i]['InraAlmoco'],
+          Almoco: maps[i]['Almoco'],
+          CafeTarde: maps[i]['CafeTarde'],
+          Jantar: maps[i]['Jantar'],
+          Ceia: maps[i]['Ceia'],
+
+      );
+    });
+  }
+
+  Future<int> atualizarRef(Refeicao modelo) async {
+    final Database db = await DatabaseHelper().database;
+    return await db.update('tabela_refeicoes', modelo.toMap(),
+        where: 'id = ?', whereArgs: [modelo.id]);
+  }
+
+  Future<int> excluirRef(int id) async {
+    final Database db = await DatabaseHelper().database;
+    int result = await db.delete('tabela_refeicoes', where: 'id = ?', whereArgs: [id]);
     return result;
   }
 
