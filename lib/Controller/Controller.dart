@@ -69,23 +69,22 @@ class SeuModeloDao {
     int result = await db.delete('seu_tabela', where: 'id = ?', whereArgs: [id]);
     return result;
   }
-  Future<Treino> inserirRef(Treino treino) async {
+  Future<Refeicao> inserirRef(Refeicao refeicao) async {
     final Database db = await database;
     Map<String, dynamic> data = {
-      'perna': treino.perna,
-      'costas': treino.costas,
-      'biceps': treino.biceps,
-      'triceps': treino.triceps,
-      'ombro': treino.ombro,
-      'gluteos': treino.gluteos,
-      'peito': treino.peito,
+      'cafeManha': refeicao.CafeManha,
+      'intraAlmoco': refeicao.IntraAlmoco,
+      'almoco': refeicao.Almoco,
+      'cafeTarde': refeicao.CafeTarde,
+      'jantar': refeicao.Jantar,
+      'ceia': refeicao.Ceia,
     };
-    int idInserido = await db.insert('seu_tabela', data);
+    int idInserido = await db.insert('tabela_refeicoes', data);
 
     // Atualizar o objeto Treino com o ID gerado
-    treino.id = idInserido;
+    refeicao.id = idInserido;
 
-    return treino;
+    return refeicao;
   }
 
 
