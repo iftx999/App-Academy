@@ -187,7 +187,7 @@ class _TelaMenuRefeicaoState extends State<TelaMenu3> {
                   Refeicao refeicaoInserida = await _dao.inserirRef(novaRefeicao);
                   print("ID da refeição inserida: ${refeicaoInserida.id}");
                 } else {
-                  await _dao.atualizar(novaRefeicao);
+                  await _dao.atualizarRef(novaRefeicao);
                 }
 
                 setState(() {});

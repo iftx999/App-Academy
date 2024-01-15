@@ -27,9 +27,12 @@ class DatabaseHelper {
         await db.execute('''
           CREATE TABLE tabela_refeicoes(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT,
-            ingredientes TEXT,
-            horario TEXT
+                   cafeManha  TEXT,   
+                  intraAlmoco   TEXT,
+                  almoco        TEXT,
+                  cafeTarde     TEXT,
+                  jantar        TEXT,
+                  ceia          TEXT
           )
         ''');
       },

@@ -96,12 +96,12 @@ class SeuModeloDao {
     return List.generate(maps.length, (i) {
       return Refeicao(
           id: maps[i]['id'],
-          CafeManha: maps[i]['CafeManha'],
-          IntraAlmoco: maps[i]['InraAlmoco'],
-          Almoco: maps[i]['Almoco'],
-          CafeTarde: maps[i]['CafeTarde'],
-          Jantar: maps[i]['Jantar'],
-          Ceia: maps[i]['Ceia'],
+          CafeManha: maps[i]['cafeManha'],
+          IntraAlmoco: maps[i]['intraAlmoco'],
+          Almoco: maps[i]['almoco'],
+          CafeTarde: maps[i]['cafeTarde'],
+          Jantar: maps[i]['jantar'],
+          Ceia: maps[i]['ceia'],
 
       );
     });
