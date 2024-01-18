@@ -2,6 +2,8 @@
 import 'package:myapp/DataBase/DataBse.dart';
 import 'package:myapp/model/treino.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:myapp/model/refeicao.dart';
+
 
 class SeuModeloDao {
   late Future<Database> database; // Alteração: Declare como Future<Database>
@@ -65,6 +67,55 @@ class SeuModeloDao {
   Future<int> excluir(int id) async {
     final Database db = await DatabaseHelper().database;
     int result = await db.delete('seu_tabela', where: 'id = ?', whereArgs: [id]);
+    return result;
+  }
+  Future<Refeicao> inserirRef(Refeicao refeicao) async {
+    final Database db = await database;
+    Map<String, dynamic> data = {
+      'cafeManha': refeicao.CafeManha,
+      'intraAlmoco': refeicao.IntraAlmoco,
+      'almoco': refeicao.Almoco,
+      'cafeTarde': refeicao.CafeTarde,
+      'jantar': refeicao.Jantar,
+      'ceia': refeicao.Ceia,
+    };
+    int idInserido = await db.insert('tabela_refeicoes', data);
+
+    // Atualizar o objeto Treino com o ID gerado
+    refeicao.id = idInserido;
+
+    return refeicao;
+  }
+
+
+
+
+  Future<List<Refeicao>> obterTodosRef() async {
+    final Database db = await DatabaseHelper().database;
+    final List<Map<String, dynamic>> maps = await db.query('tabela_refeicoes');
+    return List.generate(maps.length, (i) {
+      return Refeicao(
+          id: maps[i]['id'],
+          CafeManha: maps[i]['cafeManha'],
+          IntraAlmoco: maps[i]['intraAlmoco'],
+          Almoco: maps[i]['almoco'],
+          CafeTarde: maps[i]['cafeTarde'],
+          Jantar: maps[i]['jantar'],
+          Ceia: maps[i]['ceia'],
+
+      );
+    });
+  }
+
+  Future<int> atualizarRef(Refeicao modelo) async {
+    final Database db = await DatabaseHelper().database;
+    return await db.update('tabela_refeicoes', modelo.toMap(),
+        where: 'id = ?', whereArgs: [modelo.id]);
+  }
+
+  Future<int> excluirRef(int id) async {
+    final Database db = await DatabaseHelper().database;
+    int result = await db.delete('tabela_refeicoes', where: 'id = ?', whereArgs: [id]);
     return result;
   }
 

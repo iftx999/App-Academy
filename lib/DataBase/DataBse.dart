@@ -10,18 +10,29 @@ class DatabaseHelper {
     }
     return _database!;
   }
-
   Future<Database> initDatabase() async {
     String path = join(await getDatabasesPath(), 'seu_banco.db');
 
     _database = await openDatabase(
       path,
       version: 1,
-      onCreate: (db, version) {
-        return db.execute('''
+      onCreate: (db, version) async {
+        await db.execute('''
           CREATE TABLE seu_tabela(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            perna TEXT,  biceps TEXT, triceps TEXT, gluteos TEXT, costas TEXT, ombro TEXT, peito TEXT
+            perna TEXT, biceps TEXT, triceps TEXT, gluteos TEXT, costas TEXT, ombro TEXT, peito TEXT
+          )
+        ''');
+
+        await db.execute('''
+          CREATE TABLE tabela_refeicoes(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   cafeManha  TEXT,   
+                  intraAlmoco   TEXT,
+                  almoco        TEXT,
+                  cafeTarde     TEXT,
+                  jantar        TEXT,
+                  ceia          TEXT
           )
         ''');
       },
@@ -30,3 +41,4 @@ class DatabaseHelper {
     return _database!;
   }
 }
+

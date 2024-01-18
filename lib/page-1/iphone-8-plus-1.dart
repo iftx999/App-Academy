@@ -52,7 +52,7 @@ class _SceneState extends State<Scene> {
                 width: 400 * fem,
                 height: 736 * fem,
                 child: Image.asset(
-                  'assets/page-1/images/31Kl.gif',
+                  'assets/page-1/images/31KL.gif',
                   fit: BoxFit.cover,
                 ),
               ),
